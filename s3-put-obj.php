@@ -7,8 +7,8 @@ use Aws\Exception\AwsException;
 
 $client = new S3Client([
     'version' => 'latest',
-    'region'  => 'us-east-1', // Often ignored by Spaces but required by the SDK
-    'endpoint' => 'https://nyc3.digitaloceanspaces.com', // Replace 'nyc3' with your region
+    'region'  => 'ignored-by-spaces',
+    'endpoint' => 'https://lon1.digitaloceanspaces.com',
     'credentials' => [
         'key'    => getenv('CREDS_KEY'),
         'secret' => getenv('CREDS_SECRET'),
@@ -17,14 +17,14 @@ $client = new S3Client([
 
 try {
     $result = $client->putObject([
-        'Bucket' => 'your-bucket-name',
-        'Key'    => 'uploads/my-image.jpg',
+        'Bucket' => getenv('BUCKET'),
+        'Key'    => 'chris-test2/image01.jpg',
         'Body'   => fopen('./image01.jpg', 'r'),
-        'ACL'    => 'public-read', // Makes the image publicly accessible
+        'ACL'    => 'public-read',
         'ContentType' => 'image/jpeg'
     ]);
 
-    echo "Upload successful! URL: " . $result['ObjectURL'];
+    echo "Upload OK: " . $result['ObjectURL'];
 } catch (AwsException $e) {
     echo "Error: " . $e->getMessage();
 }
