@@ -10,8 +10,8 @@ $client = new S3Client([
     'region'  => 'us-east-1', // Often ignored by Spaces but required by the SDK
     'endpoint' => 'https://nyc3.digitaloceanspaces.com', // Replace 'nyc3' with your region
     'credentials' => [
-        'key'    => 'YOUR_ACCESS_KEY',
-        'secret' => 'YOUR_SECRET_KEY',
+        'key'    => getenv('CREDS_KEY'),
+        'secret' => getenv('CREDS_SECRET'),
     ],
 ]);
 
